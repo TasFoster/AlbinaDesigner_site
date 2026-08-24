@@ -1,0 +1,38 @@
+:root {
+  --color-ink: #26201b;
+  --color-ink-soft: #3c332c;
+  --color-cream: #f4ead9;
+  --color-cream-deep: #ece0c8;
+  --color-camel: #c9a876;
+  --color-camel-dark: #b8985f;
+  --color-red: #c5432c;
+  --color-red-dark: #a8371f;
+  --color-butter: #dda63f;
+  --color-placeholder: #a89b8b;
+  --color-placeholder-border: #241d18;
+  --color-cream-on-ink: rgba(244, 234, 217, 0.72);
+  --color-ink-on-cream: rgba(38, 32, 27, 0.65);
+
+  --font-display: "Unbounded", sans-serif;
+  --font-body: "Golos Text", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 30px;
+
+  --container-width: 1240px;
+  --container-pad: 24px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --container-pad: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --container-pad: 64px;
+  }
+}

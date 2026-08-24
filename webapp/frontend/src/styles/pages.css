@@ -1,0 +1,172 @@
+.section {
+  padding: 72px 0;
+}
+
+.band {
+  background: var(--color-cream-deep);
+}
+
+.section-label {
+  margin-bottom: 28px;
+  color: var(--color-ink-on-cream);
+}
+
+/* Hero with photo frame (home + service detail) */
+.hero-split {
+  background: var(--color-camel);
+  padding: 56px 0 64px;
+}
+
+.hero-split .container {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.hero-split h1 {
+  font-size: clamp(38px, 5vw, 56px);
+  margin-bottom: 22px;
+}
+
+.hero-split p {
+  max-width: 46ch;
+  margin-bottom: 28px;
+  font-size: 17px;
+}
+
+.hero-split__actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-on-cream);
+}
+
+.breadcrumb:hover {
+  color: var(--color-ink);
+}
+
+@media (max-width: 900px) {
+  .hero-split .container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Simple text-only hero (services / blog list) */
+.page-hero {
+  background: var(--color-camel);
+  padding: 56px 0 64px;
+}
+
+.page-hero h1 {
+  font-size: clamp(36px, 6vw, 52px);
+  margin: 14px 0 20px;
+}
+
+.page-hero p {
+  max-width: 56ch;
+  font-size: 17px;
+}
+
+/* Grids */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px 28px;
+}
+
+.two-col-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.two-col-list h3 {
+  font-size: 19px;
+  text-transform: none;
+  margin-bottom: 16px;
+}
+
+.two-col-list ul {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.two-col-list li {
+  padding-left: 18px;
+  position: relative;
+}
+
+.two-col-list li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--color-red);
+}
+
+.load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+@media (max-width: 900px) {
+  .services-grid,
+  .reviews-grid,
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .two-col-list {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1180px) {
+  .services-grid,
+  .reviews-grid,
+  .blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.not-found {
+  padding: 120px 0;
+  text-align: center;
+}
+
+.not-found h1 {
+  font-size: clamp(48px, 10vw, 96px);
+}
+
+.not-found p {
+  margin: 16px 0 28px;
+  color: var(--color-ink-on-cream);
+}
