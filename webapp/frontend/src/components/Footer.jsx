@@ -21,7 +21,7 @@ export default function Footer() {
           <nav aria-label="Навигация по сайту">
             <Link to="/services">Услуги</Link>
             <Link to="/blog">Блог</Link>
-            <a href="#footer-contacts">О мне</a>
+            <Link to="/about">О мне</Link>
             <a href="#footer-contacts">Написать</a>
           </nav>
 

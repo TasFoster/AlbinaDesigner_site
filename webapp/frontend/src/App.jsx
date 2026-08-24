@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import ServicesPage from "./pages/ServicesPage";
 import ServiceDetailPage from "./pages/ServiceDetailPage";
 import BlogPage from "./pages/BlogPage";
+import AboutPage from "./pages/AboutPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import AdminLayout from "./pages/admin/AdminLayout";
 import DashboardPage from "./pages/admin/DashboardPage";
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="services" element={<ServicesPage />} />
         <Route path="services/:slug" element={<ServiceDetailPage />} />
         <Route path="blog" element={<BlogPage />} />
+        <Route path="about" element={<AboutPage />} />
       </Route>
 
       <Route path="admin" element={<AdminLayout />}>
