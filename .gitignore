@@ -1,0 +1,29 @@
+# Secrets — never commit
+albina_server_key
+albina_server_key.pub
+*.pem
+*_rsa
+*_ed25519
+.env
+
+# Local tooling, not project content
+.claude/
+.playwright-mcp/
+
+# Photo material with unresolved privacy/rights issues (see project memory) —
+# do not commit until manually re-vetted with the client.
+Assets/Фото работ/
+Матириалы для дизайн документа/Фото работ/
+Матириалы для дизайн документа/Мудборд/Референсы из фото/
+
+# Frontend
+webapp/frontend/node_modules/
+webapp/frontend/dist/
+
+# Backend
+webapp/backend/.venv/
+webapp/backend/__pycache__/
+webapp/backend/**/__pycache__/
+webapp/backend/db.sqlite3
+webapp/backend/staticfiles/
+webapp/backend/.env
