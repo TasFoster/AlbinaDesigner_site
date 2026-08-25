@@ -42,19 +42,27 @@ def _save_subscriber(chat_id, username, first_name, source):
 
 
 @sync_to_async
-def _try_claim_admin(secret, chat_id):
+def _try_claim_admin(secret, chat_id, username, first_name):
     profile = SiteProfile.load()
     if not secret or secret != profile.admin_claim_secret:
         return False
-    profile.owner_telegram_chat_id = chat_id
-    profile.save(update_fields=["owner_telegram_chat_id"])
+    # Secret is intentionally reusable — Albina can hand it to assistants to
+    # make them admins too, so this can grant admin to more than one person.
+    TelegramSubscriber.objects.update_or_create(
+        chat_id=chat_id,
+        defaults={
+            "username": username or "",
+            "first_name": first_name or "",
+            "is_admin": True,
+            "is_active": True,
+        },
+    )
     return True
 
 
 @sync_to_async
 def _is_admin(chat_id):
-    profile = SiteProfile.load()
-    return profile.owner_telegram_chat_id == chat_id
+    return TelegramSubscriber.objects.filter(chat_id=chat_id, is_admin=True).exists()
 
 
 @sync_to_async
@@ -127,9 +135,11 @@ async def get_guide_callback(callback: CallbackQuery, bot: Bot):
 
 @router.message(Command("claim_admin"))
 async def claim_admin(message: Message, command: CommandObject):
-    ok = await _try_claim_admin((command.args or "").strip(), message.chat.id)
+    ok = await _try_claim_admin(
+        (command.args or "").strip(), message.chat.id, message.from_user.username, message.from_user.first_name
+    )
     if ok:
-        await message.answer("Готово — теперь заявки с сайта будут приходить сюда.")
+        await message.answer("Готово — теперь заявки с сайта будут приходить сюда. Команда /leads покажет последние заявки.")
     else:
         await message.answer("Неверный секрет.")
 

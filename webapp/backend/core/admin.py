@@ -23,18 +23,18 @@ class SiteProfileAdmin(admin.ModelAdmin):
             },
         ),
         (
-            "Бот: админ-доступ",
+            "Бот: секрет для назначения админов",
             {
-                "fields": ("admin_claim_secret", "owner_telegram_chat_id"),
+                "fields": ("admin_claim_secret",),
                 "description": (
-                    "Чтобы бот присылал уведомления о заявках Альбине — она один раз пишет боту "
-                    "«/claim_admin &lt;секрет&gt;» (секрет ниже). После этого chat_id заполнится "
-                    "автоматически."
+                    "Любой, кто напишет боту «/claim_admin &lt;секрет&gt;» (секрет ниже), станет "
+                    "админом — будет получать уведомления о заявках и сможет смотреть /leads в боте. "
+                    "Секрет можно давать нескольким людям (Альбине, помощникам). Список текущих "
+                    "админов — в разделе Leads → Подписчики Telegram (галочка «is admin»)."
                 ),
             },
         ),
     )
-    readonly_fields = ("owner_telegram_chat_id",)
 
     def has_add_permission(self, request):
         return not SiteProfile.objects.exists()
