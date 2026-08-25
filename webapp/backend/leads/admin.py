@@ -13,6 +13,7 @@ class LeadAdmin(admin.ModelAdmin):
 
 @admin.register(TelegramSubscriber)
 class TelegramSubscriberAdmin(admin.ModelAdmin):
-    list_display = ("username", "first_name", "chat_id", "source", "is_active", "subscribed_at")
-    list_filter = ("source", "is_active")
+    list_display = ("username", "first_name", "chat_id", "source", "is_admin", "is_active", "subscribed_at")
+    list_editable = ("is_admin",)
+    list_filter = ("source", "is_admin", "is_active")
     search_fields = ("username", "first_name", "chat_id")

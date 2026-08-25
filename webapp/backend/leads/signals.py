@@ -1,9 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from core.models import SiteProfile
-
-from .models import Lead
+from .models import Lead, TelegramSubscriber
 from .telegram_notify import send_admin_message
 
 
@@ -12,8 +10,10 @@ def notify_admin_of_new_lead(sender, instance, created, **kwargs):
     if not created:
         return
 
-    profile = SiteProfile.load()
-    if not profile.owner_telegram_chat_id:
+    admin_chat_ids = TelegramSubscriber.objects.filter(is_admin=True, is_active=True).values_list(
+        "chat_id", flat=True
+    )
+    if not admin_chat_ids:
         return
 
     service = instance.service.title if instance.service else "без указания услуги"
@@ -26,4 +26,5 @@ def notify_admin_of_new_lead(sender, instance, created, **kwargs):
     if instance.message:
         text += f"Сообщение: {instance.message}\n"
 
-    send_admin_message(profile.owner_telegram_chat_id, text)
+    for chat_id in admin_chat_ids:
+        send_admin_message(chat_id, text)

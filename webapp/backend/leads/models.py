@@ -41,6 +41,9 @@ class TelegramSubscriber(models.Model):
         max_length=64, default="wardrobe_guide", help_text="Deep-link параметр /start, за что подписался"
     )
     is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(
+        default=False, help_text="Получает уведомления о заявках и доступ к /leads в боте"
+    )
     subscribed_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

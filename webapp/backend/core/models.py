@@ -24,10 +24,12 @@ class SiteProfile(models.Model):
         max_length=64, default="wardrobe_guide", help_text='Параметр /start в боте, например "wardrobe_guide"'
     )
 
-    # Bot admin bootstrap: whoever DMs the bot "/claim_admin <secret>" first
-    # becomes the owner and starts receiving lead notifications. Telegram bots
-    # cannot message a user first, so this is how the bot learns her chat_id.
-    owner_telegram_chat_id = models.BigIntegerField(null=True, blank=True)
+    # Bot admin bootstrap: whoever DMs the bot "/claim_admin <secret>" is
+    # flagged as an admin in leads.TelegramSubscriber (is_admin=True) and
+    # starts receiving lead notifications. Telegram bots cannot message a
+    # user first, so this is how the bot learns admins' chat_ids. The
+    # secret is intentionally reusable — Albina can hand it to assistants
+    # to make them admins too, not just a single owner.
     admin_claim_secret = models.CharField(max_length=64, default=secrets.token_urlsafe)
 
     updated_at = models.DateTimeField(auto_now=True)
