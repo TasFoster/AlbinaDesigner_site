@@ -42,6 +42,20 @@ Postgres недоступен — Django автоматически откати
 Проверка, что бэкенд видит базу: `GET http://127.0.0.1:8000/api/health/` →
 `{"status": "ok", "database": "postgresql"}`.
 
+Приложения: `core` (профиль сайта/лид-магнит, `SiteProfile` — синглтон),
+`services` (услуги + отзывы), `blog` (записи блога), `leads` (заявки +
+подписчики Telegram-бота). Заполнить демо-контентом (тем же, что зашит в
+`frontend/src/data/*.js`, — так они не расходятся):
+
+```bash
+./.venv/Scripts/python.exe manage.py seed_demo_data
+```
+
+Публичное API: `/api/services/`, `/api/services/<slug>/`, `/api/reviews/`,
+`/api/posts/`, `/api/posts/<slug>/`, `/api/profile/`, `POST /api/leads/`
+(создание заявки открыто всем, просмотр списка — только staff). Админка —
+`/admin/`.
+
 ### 3. Фронтенд (React + Vite)
 
 ```bash
@@ -68,3 +82,7 @@ webapp\backend\.venv\Scripts\Activate.ps1
   (`/var/www/albina/.env`), сюда не копировать.
 - Домен, HTTPS/certbot, systemd-unit для gunicorn и деплой самого кода на VPS —
   ещё не сделаны, это следующий шаг после того как появится реальный код приложения.
+- Telegram-бот (выдача PDF-гайда, уведомления о заявках) — ещё не реализован,
+  план в [`telegram-bot-plan.md`](./telegram-bot-plan.md).
+- Фронтенд пока не подключён к этому API — данные в `frontend/src/data/*.js`
+  зашиты статически (см. project memory).
