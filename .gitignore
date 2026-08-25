@@ -5,6 +5,9 @@ albina_server_key.pub
 *_rsa
 *_ed25519
 .env
+Tocen_bot
+*_bot_token*
+*token*.txt
 
 # Local tooling, not project content
 .claude/
