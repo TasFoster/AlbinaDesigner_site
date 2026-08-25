@@ -49,12 +49,23 @@ Postgres недоступен — Django автоматически откати
 
 Приложения: `core` (профиль сайта/лид-магнит, `SiteProfile` — синглтон),
 `services` (услуги + отзывы), `blog` (записи блога), `leads` (заявки +
-подписчики Telegram-бота). Заполнить демо-контентом (тем же, что зашит в
-`frontend/src/data/*.js`, — так они не расходятся):
+подписчики Telegram-бота). Заполнить демо-контентом (идемпотентно):
 
 ```bash
 ./.venv/Scripts/python.exe manage.py seed_demo_data
 ```
+
+Фронтенд получает весь контент из этого API (никаких `data/*.js` больше нет).
+
+### 2а. Telegram-бот
+
+```bash
+cd webapp/backend
+./.venv/Scripts/python.exe manage.py run_bot
+```
+
+Нужен `TELEGRAM_BOT_TOKEN` в `.env` (от @BotFather). Подробности — в
+[`ОПИСАНИЕ-ФУНКЦИОНАЛА.md`](./ОПИСАНИЕ-ФУНКЦИОНАЛА.md#5-telegram-бот-albinadesigner_bot--реализован-и-работает-на-проде).
 
 Публичное API: `/api/services/`, `/api/services/<slug>/`, `/api/reviews/`,
 `/api/posts/`, `/api/posts/<slug>/`, `/api/profile/`, `POST /api/leads/`
@@ -85,9 +96,11 @@ webapp\backend\.venv\Scripts\Activate.ps1
 - `.env` в `backend/` не должен попадать в git (см. `backend/.gitignore`) — реальные
   секреты (боевой `SECRET_KEY`, пароль БД) хранятся только на самом сервере
   (`/var/www/albina/.env`), сюда не копировать.
-- Домен, HTTPS/certbot, systemd-unit для gunicorn и деплой самого кода на VPS —
-  ещё не сделаны, это следующий шаг после того как появится реальный код приложения.
-- Telegram-бот (выдача PDF-гайда, уведомления о заявках) — ещё не реализован,
-  план в [`telegram-bot-plan.md`](./telegram-bot-plan.md).
-- Фронтенд пока не подключён к этому API — данные в `frontend/src/data/*.js`
-  зашиты статически (см. project memory).
+- **Сайт развёрнут и работает**: https://24albinadisigner.ru/ — фронтенд,
+  бэкенд (gunicorn за Nginx, `/api/` и `/admin/` проксируются) и бот
+  (systemd, long polling) все на одном VPS. Подробный статус — в
+  [`ОПИСАНИЕ-ФУНКЦИОНАЛА.md`](./ОПИСАНИЕ-ФУНКЦИОНАЛА.md).
+- На сервере `api.telegram.org` резолвится в заблокированный (на уровне
+  TLS/SNI) IP — обойдено записью в `/etc/hosts` на другой IP того же пула
+  Telegram. См. раздел 5 в ОПИСАНИЕ-ФУНКЦИОНАЛА.md, если бот/уведомления
+  вдруг перестанут работать.
