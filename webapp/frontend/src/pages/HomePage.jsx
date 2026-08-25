@@ -5,9 +5,14 @@ import ServiceCard from "../components/ServiceCard";
 import CtaDark from "../components/CtaDark";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
-import { services } from "../data/services";
+import { api } from "../api";
+import { useApi } from "../hooks/useApi";
+import { useBooking } from "../context/BookingContext";
 
 export default function HomePage() {
+  const { data: services, loading, error } = useApi(() => api.getServices(), []);
+  const { requestBooking } = useBooking();
+
   return (
     <>
       <section className="hero-split">
@@ -22,9 +27,9 @@ export default function HomePage() {
               шоп-тур для тех, кто хочет преобразиться.
             </p>
             <div className="hero-split__actions">
-              <a href="#footer-contacts" className="btn btn-primary">
+              <button type="button" className="btn btn-primary" onClick={() => requestBooking()}>
                 Записаться <Arrow />
-              </a>
+              </button>
               <span className="btn-meta">от 3 000 ₽ · Москва / Саратов</span>
             </div>
           </Reveal>
@@ -52,8 +57,10 @@ export default function HomePage() {
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container">
           <p className="eyebrow section-label">Услуги — по нарастающей</p>
+          {loading && <p>Загружаю услуги…</p>}
+          {error && <p>Не получилось загрузить услуги. Попробуй обновить страницу.</p>}
           <div className="services-grid">
-            {services.map((service, index) => (
+            {services?.map((service, index) => (
               <Reveal key={service.slug} delay={index * 90}>
                 <ServiceCard service={service} />
               </Reveal>

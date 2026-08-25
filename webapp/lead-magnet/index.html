@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Как разобрать гардероб самостоятельно — albina.</title>
+<style>
+  @font-face {
+    font-family: "Unbounded";
+    src: url("fonts/unbounded-cyrillic-700-normal.woff2") format("woff2");
+    font-weight: 700;
+  }
+  @font-face {
+    font-family: "Unbounded";
+    src: url("fonts/unbounded-cyrillic-800-normal.woff2") format("woff2");
+    font-weight: 800;
+  }
+  @font-face {
+    font-family: "Golos Text";
+    src: url("fonts/golos-text-cyrillic-400-normal.woff2") format("woff2");
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: "Golos Text";
+    src: url("fonts/golos-text-cyrillic-500-normal.woff2") format("woff2");
+    font-weight: 500;
+  }
+  @font-face {
+    font-family: "JetBrains Mono";
+    src: url("fonts/jetbrains-mono-cyrillic-500-normal.woff2") format("woff2");
+    font-weight: 500;
+  }
+  @font-face {
+    font-family: "JetBrains Mono";
+    src: url("fonts/jetbrains-mono-cyrillic-600-normal.woff2") format("woff2");
+    font-weight: 600;
+  }
+
+  :root {
+    --ink: #26201b;
+    --cream: #f4ead9;
+    --cream-deep: #ece0c8;
+    --camel: #c9a876;
+    --red: #c5432c;
+    --butter: #dda63f;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: "Golos Text", sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .page {
+    width: 794px;
+    min-height: 1123px;
+    padding: 56px 64px;
+    page-break-after: always;
+  }
+
+  h1, h2 {
+    font-family: "Unbounded", sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.08;
+    margin: 0;
+  }
+
+  .eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+
+  /* Cover */
+  .cover {
+    background: var(--camel);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .cover .logo {
+    font-family: "Unbounded", sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+  }
+  .cover h1 { font-size: 44px; margin: 24px 0 20px; max-width: 9.5em; }
+  .cover p { font-size: 16px; max-width: 30em; }
+  .cover .footer-note {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  /* Intro page */
+  .intro p { font-size: 15px; margin: 0 0 16px; max-width: 44em; }
+  .intro .lead { font-size: 17px; font-weight: 500; }
+
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .categories .cat {
+    background: var(--cream-deep);
+    border: 1px solid rgba(38,32,27,0.14);
+    border-radius: 10px;
+    padding: 14px 12px;
+    font-size: 12px;
+    text-align: center;
+  }
+  .categories .cat .mark { font-size: 22px; display: block; margin-bottom: 6px; }
+
+  /* Question steps */
+  .steps { margin-top: 8px; }
+  .step {
+    background: var(--cream-deep);
+    border: 1px solid rgba(38,32,27,0.14);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+  }
+  .step .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid var(--ink);
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 600;
+    font-size: 12px;
+    margin-right: 10px;
+  }
+  .step .q { font-size: 14.5px; font-weight: 500; display: inline; }
+  .branches {
+    margin-top: 10px;
+    padding-left: 36px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+  }
+  .branches div { margin-top: 4px; }
+  .branches .yes { color: #5c6d3a; }
+  .branches .no { color: var(--red); }
+
+  .emotion-block {
+    margin-top: 22px;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+  .emotion-block .eyebrow { color: var(--butter); }
+  .emotion-block .q { font-size: 14.5px; font-weight: 500; margin-top: 6px; }
+  .emotion-block .branches .yes { color: #e3b98a; }
+  .emotion-block .branches .no { color: #d98a76; }
+
+  .last-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .last-page h2 { font-size: 26px; margin-bottom: 16px; }
+  .last-page p { font-size: 14px; max-width: 34em; margin: 0 0 10px; }
+</style>
+</head>
+<body>
+
+<section class="page cover">
+  <div class="logo">albina.</div>
+  <div>
+    <p class="eyebrow">Бесплатный гайд</p>
+    <h1>Как разобрать гардероб самостоятельно</h1>
+    <p>Пошаговая схема на каждую вещь в шкафу — оставить, отдать, в химчистку
+      или выбросить. Наводишь порядок сама, без стилиста.</p>
+  </div>
+  <div class="footer-note">albina. — подбор образа, а не гардероб целиком</div>
+</section>
+
+<section class="page intro">
+  <p class="eyebrow">Как пользоваться гайдом</p>
+  <h2 style="font-size:22px;margin:10px 0 18px;">Один вопрос — один шаг ближе к порядку</h2>
+  <p class="lead">Я собираю образы, а не разбираю шкафы — а вот с этим ты прекрасно
+    справишься сама. Бери вещи из шкафа по одной и проходи с каждой этот путь
+    вопросов сверху вниз. Как только ответ — «да» и стрелка ведёт к одной из
+    пяти категорий ниже — вещь нашла своё место.</p>
+  <p>На часть вопросов легко ответить «не знаю». Тогда просто отложи вещь в
+    сторону и вернись к ней в конце — когда весь остальной гардероб уже разобран,
+    решение обычно приходит само.</p>
+
+  <div class="categories">
+    <div class="cat"><span class="mark">🗑</span>Мусор</div>
+    <div class="cat"><span class="mark">📦</span>Коробка с памятными вещами</div>
+    <div class="cat"><span class="mark">🎁</span>Коробка на благотворительность</div>
+    <div class="cat"><span class="mark">🧵</span>Химчистка / починка / ателье</div>
+    <div class="cat"><span class="mark">👗</span>Обратно в шкаф</div>
+  </div>
+</section>
+
+<section class="page">
+  <p class="eyebrow">Проходи по порядку</p>
+  <h2 style="font-size:22px;margin:10px 0 22px;">Вопросы к каждой вещи</h2>
+
+  <div class="steps">
+    <div class="step">
+      <span class="num">01</span><span class="q">Вещь не подлежит восстановлению или заношена?</span>
+      <div class="branches">
+        <div class="yes">→ Да: сразу в мусор.</div>
+        <div class="no">→ Нет: к вопросу 02.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="num">02</span><span class="q">Это удобная вещь? Смогла бы ты её носить?</span>
+      <div class="branches">
+        <div class="yes">→ Да: к вопросу 03.</div>
+        <div class="no">→ Нет: к блоку «Приятные эмоции» на следующей странице.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="num">03</span><span class="q">Соответствует ли вещь твоему стилю? Сможешь ли интегрировать её в образ?</span>
+      <div class="branches">
+        <div class="yes">→ Да: к вопросу 04.</div>
+        <div class="no">→ Нет: к блоку «Приятные эмоции».</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="num">04</span><span class="q">Есть ли у вещи мелкие недостатки (оторванные пуговицы, сломанная молния) или пятно, которое можно вывести?</span>
+      <div class="branches">
+        <div class="yes">→ Да: в химчистку, на починку или в ателье.</div>
+        <div class="no">→ Нет: к вопросу 05.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="num">05</span><span class="q">Нравится ли тебе, как вещь на тебе сидит?</span>
+      <div class="branches">
+        <div class="yes">→ Да: обратно в шкаф.</div>
+        <div class="no">→ Нет: к вопросу 06.</div>
+      </div>
+    </div>
+
+    <div class="step" style="margin-bottom:0;">
+      <span class="num">06</span><span class="q">Можно ли перешить её под себя?</span>
+      <div class="branches">
+        <div class="yes">→ Да: в химчистку, на починку или в ателье.</div>
+        <div class="no">→ Нет: к блоку «Приятные эмоции».</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page last-page">
+  <div class="emotion-block">
+    <p class="eyebrow">Блок «Приятные эмоции»</p>
+    <p class="q">Дарит ли эта вещь тебе приятные эмоции?</p>
+    <div class="branches">
+      <div class="yes">→ Да: в коробку с памятными вещами.</div>
+      <div class="no">→ Нет: в коробку на благотворительность.</div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:36px;">Готово</h2>
+  <p>Пройди так весь шкаф — и у тебя останутся только вещи, которые ты
+    действительно носишь и в которых узнаёшь себя. Если после разбора
+    осталось «пусто, а надеть нечего» — с этим я помогу: капсула онлайн,
+    сопровождение на шопинг или шоп-тур.</p>
+  <p style="margin-top:24px; font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.04em;">
+    albina. — подбор образа, а не гардероб целиком
+  </p>
+</section>
+
+</body>
+</html>

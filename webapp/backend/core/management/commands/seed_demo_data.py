@@ -1,3 +1,6 @@
+from pathlib import Path
+
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
@@ -260,7 +263,8 @@ SITE_PROFILE = {
         "Для Альбины хороший образ — это не просто удачное сочетание вещей. Это состояние, в котором "
         "человек смотрит на себя в зеркало и думает: «Вот это действительно я»."
     ),
-    "phone": "+7 (999) 000-00-00",
+    "telegram_channel_url": "https://t.me/nadevai_24",
+    "telegram_bot_url": "https://t.me/AlbinaDesigner_bot",
     "lead_magnet_label": "Бесплатно, без обязательств",
     "lead_magnet_heading": "PDF-гайд «Как разобрать гардероб самостоятельно»",
     "lead_magnet_text": (
@@ -268,7 +272,10 @@ SITE_PROFILE = {
         "Наводишь порядок сама, без стилиста."
     ),
     "lead_magnet_note": "Файл придёт в боте сразу после подписки",
+    "lead_magnet_deep_link_param": "wardrobe_guide",
 }
+
+LEAD_MAGNET_FILE_RELATIVE_PATH = "lead-magnets/razbor-garderoba.pdf"
 
 
 class Command(BaseCommand):
@@ -297,6 +304,8 @@ class Command(BaseCommand):
         profile = SiteProfile.load()
         for field, value in SITE_PROFILE.items():
             setattr(profile, field, value)
+        if (Path(settings.MEDIA_ROOT) / LEAD_MAGNET_FILE_RELATIVE_PATH).exists():
+            profile.lead_magnet_file.name = LEAD_MAGNET_FILE_RELATIVE_PATH
         profile.save()
         self.stdout.write("  профиль сайта обновлён")
 

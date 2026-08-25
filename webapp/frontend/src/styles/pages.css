@@ -216,3 +216,12 @@
   margin: 16px 0 28px;
   color: var(--color-ink-on-cream);
 }
+
+.blog-post-body p {
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+
+.blog-post-body p:last-child {
+  margin-bottom: 0;
+}

@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
+import { useProfile } from "../context/ProfileContext";
 
 export default function Footer() {
+  const { profile } = useProfile();
+
   return (
-    <footer className="site-footer" id="footer-contacts">
+    <footer className="site-footer">
       <div className="container">
         <div className="site-footer__grid">
           <div className="site-footer__brand">
@@ -22,13 +25,20 @@ export default function Footer() {
             <Link to="/services">Услуги</Link>
             <Link to="/blog">Блог</Link>
             <Link to="/about">О мне</Link>
-            <a href="#footer-contacts">Написать</a>
+            <a href="#lead-form">Записаться</a>
           </nav>
 
           <div className="site-footer__contacts">
-            <a href="#">Telegram</a>
-            <a href="#">Instagram</a>
-            <a href="tel:+79990000000">+7 (999) 000-00-00</a>
+            {profile?.telegram_bot_url && (
+              <a href={profile.telegram_bot_url} target="_blank" rel="noreferrer">
+                Написать в Telegram
+              </a>
+            )}
+            {profile?.telegram_channel_url && (
+              <a href={profile.telegram_channel_url} target="_blank" rel="noreferrer">
+                Канал в Telegram
+              </a>
+            )}
           </div>
         </div>
 

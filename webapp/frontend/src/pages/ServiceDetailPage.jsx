@@ -5,15 +5,30 @@ import ReviewCard from "../components/ReviewCard";
 import CtaDark from "../components/CtaDark";
 import Reveal from "../components/Reveal";
 import Arrow from "../components/Arrow";
-import { getServiceBySlug } from "../data/services";
+import { api } from "../api";
+import { useApi } from "../hooks/useApi";
+import { useBooking } from "../context/BookingContext";
 
 export default function ServiceDetailPage() {
   const { slug } = useParams();
-  const service = getServiceBySlug(slug);
+  const { data: service, loading, error } = useApi(() => api.getService(slug), [slug]);
+  const { requestBooking } = useBooking();
 
-  if (!service) {
+  if (error) {
     return <Navigate to="/services" replace />;
   }
+
+  if (loading || !service) {
+    return (
+      <section className="section">
+        <div className="container">
+          <p>Загружаю услугу…</p>
+        </div>
+      </section>
+    );
+  }
+
+  const review = service.reviews?.[0];
 
   return (
     <>
@@ -26,13 +41,13 @@ export default function ServiceDetailPage() {
               </span>{" "}
               Все услуги
             </Link>
-            <span className="pill pill-price">{service.price}</span>
+            <span className="pill pill-price">{service.price_display}</span>
             <h1 style={{ marginTop: 16 }}>{service.title}</h1>
-            <p>{service.longDesc}</p>
+            <p>{service.long_desc}</p>
             <div className="hero-split__actions">
-              <a href="#footer-contacts" className="btn btn-primary">
-                {service.ctaLabel} <Arrow />
-              </a>
+              <button type="button" className="btn btn-primary" onClick={() => requestBooking(service.slug)}>
+                {service.cta_label} <Arrow />
+              </button>
               <span className="btn-meta">{service.duration}</span>
             </div>
           </Reveal>
@@ -59,32 +74,34 @@ export default function ServiceDetailPage() {
 
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container">
-          <p className="eyebrow section-label">{service.examplesLabel}</p>
+          <p className="eyebrow section-label">{service.examples_label}</p>
           <div className="gallery-grid">
             {[1, 2, 3, 4].map((item, index) => (
               <Reveal key={item} delay={index * 80}>
-                <PhotoTile label={`${service.examplesLabel}, кадр ${item}`} />
+                <PhotoTile label={`${service.examples_label}, кадр ${item}`} />
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section band">
-        <div className="container">
-          <p className="eyebrow section-label">Отзыв</p>
-          <Reveal style={{ maxWidth: 520 }}>
-            <ReviewCard quote={service.review.quote} author={service.review.author} />
-          </Reveal>
-        </div>
-      </section>
+      {review && (
+        <section className="section band">
+          <div className="container">
+            <p className="eyebrow section-label">Отзыв</p>
+            <Reveal style={{ maxWidth: 520 }}>
+              <ReviewCard quote={review.quote} author={review.author} />
+            </Reveal>
+          </div>
+        </section>
+      )}
 
       <section className="section">
         <div className="container two-col-list">
           <Reveal>
             <h3>Кому подойдёт</h3>
             <ul>
-              {service.forWhom.map((item) => (
+              {service.for_whom.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
@@ -92,7 +109,7 @@ export default function ServiceDetailPage() {
           <Reveal delay={100}>
             <h3>Что получишь</h3>
             <ul>
-              {service.whatYouGet.map((item) => (
+              {service.what_you_get.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
@@ -101,11 +118,12 @@ export default function ServiceDetailPage() {
       </section>
 
       <CtaDark
-        label={service.ctaDark.label}
-        heading={service.ctaDark.heading}
-        text={service.ctaDark.text}
-        buttonLabel="Написать в Telegram"
+        label={service.cta_dark_label}
+        heading={service.cta_dark_heading}
+        text={service.cta_dark_text}
+        buttonLabel="Написать"
         note={null}
+        onClick={() => requestBooking(service.slug)}
       />
     </>
   );

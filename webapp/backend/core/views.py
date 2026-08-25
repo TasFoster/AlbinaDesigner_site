@@ -20,4 +20,4 @@ def health(request):
 
 @api_view(['GET'])
 def profile(request):
-    return Response(SiteProfileSerializer(SiteProfile.load()).data)
+    return Response(SiteProfileSerializer(SiteProfile.load(), context={'request': request}).data)

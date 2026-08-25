@@ -3,9 +3,14 @@ import ServiceCard from "../components/ServiceCard";
 import ReviewCard from "../components/ReviewCard";
 import CtaDark from "../components/CtaDark";
 import Reveal from "../components/Reveal";
-import { services } from "../data/services";
+import { api } from "../api";
+import { useApi } from "../hooks/useApi";
 
 export default function ServicesPage() {
+  const { data: services, loading, error } = useApi(() => api.getServices(), []);
+
+  const reviews = services?.flatMap((service) => service.reviews) ?? [];
+
   return (
     <>
       <section className="page-hero">
@@ -26,8 +31,10 @@ export default function ServicesPage() {
       <section className="section">
         <div className="container">
           <p className="eyebrow section-label">Услуги — по нарастающей</p>
+          {loading && <p>Загружаю услуги…</p>}
+          {error && <p>Не получилось загрузить услуги. Попробуй обновить страницу.</p>}
           <div className="services-grid">
-            {services.map((service, index) => (
+            {services?.map((service, index) => (
               <Reveal key={service.slug} delay={index * 90}>
                 <ServiceCard service={service} detailed />
               </Reveal>
@@ -36,18 +43,20 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="section band">
-        <div className="container">
-          <p className="eyebrow section-label">Отзывы</p>
-          <div className="reviews-grid">
-            {services.map((service, index) => (
-              <Reveal key={service.slug} delay={index * 90}>
-                <ReviewCard quote={service.review.quote} author={service.review.author} />
-              </Reveal>
-            ))}
+      {reviews.length > 0 && (
+        <section className="section band">
+          <div className="container">
+            <p className="eyebrow section-label">Отзывы</p>
+            <div className="reviews-grid">
+              {reviews.map((review, index) => (
+                <Reveal key={review.id} delay={index * 90}>
+                  <ReviewCard quote={review.quote} author={review.author} />
+                </Reveal>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <CtaDark />
     </>

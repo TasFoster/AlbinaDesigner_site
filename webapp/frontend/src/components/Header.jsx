@@ -17,7 +17,7 @@ export default function Header() {
           <NavLink to="/about" className={({ isActive }) => (isActive ? "active" : "")}>
             О мне
           </NavLink>
-          <a href="#footer-contacts">Написать</a>
+          <a href="#lead-form">Написать</a>
         </nav>
       </div>
     </header>

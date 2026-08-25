@@ -4,9 +4,9 @@ import Arrow from "./Arrow";
 export default function ServiceCard({ service, detailed = false }) {
   return (
     <article className="card service-card">
-      <span className="pill pill-price">{service.price}</span>
+      <span className="pill pill-price">{service.price_display}</span>
       <h3>{service.title}</h3>
-      <p>{service.shortDesc}</p>
+      <p>{service.short_desc}</p>
 
       {detailed && (
         <ul className="service-card__features">
