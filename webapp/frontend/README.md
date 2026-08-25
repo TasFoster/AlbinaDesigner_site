@@ -1,16 +1,37 @@
-# React + Vite
+# Albina site — frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + Vite. Сайт-визитка стилиста Альбины.
 
-Currently, two official plugins are available:
+## Запуск
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # продакшн-сборка в dist/
+```
 
-## React Compiler
+Адрес backend API можно задать в `.env` (`VITE_API_URL`, см. `.env.example`).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Структура
 
-## Expanding the Oxlint configuration
+```
+src/
+├── main.jsx            # точка входа, BrowserRouter
+├── App.jsx             # маршруты (react-router-dom)
+├── pages/              # страницы: Home, Services, ServiceDetail, Blog, About, NotFound
+│   └── admin/          # макет админ-дашборда (AdminLayout, DashboardPage)
+├── components/         # Header, Footer, Marquee, PhotoFrame, ServiceCard, ReviewCard,
+│                       #   BlogCard, CtaDark, Reveal, Arrow, SiteLayout
+├── hooks/useReveal.js  # scroll-reveal через IntersectionObserver + fallback-таймер
+├── data/               # контент (services, posts, about, admin) — пока статичный
+└── styles/             # tokens, base, layout, components, pages (CSS-модули по слоям)
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Важное
+
+- **Данные пока захардкожены** в `src/data/*.js` — фронт ещё не подключён к Django API
+  (`webapp/backend`). Контент там намеренно совпадает с тем, что засевается командой
+  `manage.py seed_demo_data` на бэкенде.
+- **Фото — плейсхолдеры** (серо-бежевые блоки в «рамке зеркала»): реальные фото пока
+  не заведены.
+- Полное описание функционала — в [`../ОПИСАНИЕ-ФУНКЦИОНАЛА.md`](../ОПИСАНИЕ-ФУНКЦИОНАЛА.md).
