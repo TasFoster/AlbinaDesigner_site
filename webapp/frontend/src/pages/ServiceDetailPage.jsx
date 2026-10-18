@@ -1,4 +1,5 @@
 import { Link, Navigate, useParams } from "react-router-dom";
+import { getServiceImages } from "../data/serviceImages";
 import PhotoFrame from "../components/PhotoFrame";
 import PhotoTile from "../components/PhotoTile";
 import ReviewCard from "../components/ReviewCard";
@@ -29,6 +30,7 @@ export default function ServiceDetailPage() {
   }
 
   const review = service.reviews?.[0];
+  const images = getServiceImages(service.slug);
 
   return (
     <>
@@ -52,7 +54,7 @@ export default function ServiceDetailPage() {
             </div>
           </Reveal>
           <Reveal delay={150}>
-            <PhotoFrame label={service.title} />
+            <PhotoFrame label={service.title} src={images.hero} />
           </Reveal>
         </div>
       </section>
@@ -78,7 +80,7 @@ export default function ServiceDetailPage() {
           <div className="gallery-grid">
             {[1, 2, 3, 4].map((item, index) => (
               <Reveal key={item} delay={index * 80}>
-                <PhotoTile label={`${service.examples_label}, кадр ${item}`} />
+                <PhotoTile label={`${service.examples_label}, кадр ${item}`} src={images.gallery[index]} />
               </Reveal>
             ))}
           </div>
