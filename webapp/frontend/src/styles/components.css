@@ -633,3 +633,8 @@
   padding: 0;
   cursor: pointer;
 }
+
+/* Editorial outfit collages: preserve the full composition rather than cropping garments. */
+.photo-frame__inner img, .photo-tile[src] { object-fit: contain; }
+.photo-frame__inner:has(img) { background: #f7f4ef; }
+.service-card__image { width: 100%; height: 210px; display: block; object-fit: contain; background: #f7f4ef; border-radius: 10px; margin-bottom: 20px; }
