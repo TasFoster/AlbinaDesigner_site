@@ -1,4 +1,5 @@
 import Marquee from "../components/Marquee";
+import { processImages } from "../data/serviceImages";
 import PhotoFrame from "../components/PhotoFrame";
 import PhotoTile from "../components/PhotoTile";
 import ServiceCard from "../components/ServiceCard";
@@ -47,7 +48,7 @@ export default function HomePage() {
           <div className="process-strip">
             {[-4, 2, -2, 4].map((rotate, index) => (
               <Reveal key={rotate} delay={index * 90} style={{ "--tile-rotate": `${rotate}deg` }}>
-                <PhotoTile label={`Процесс подбора образа, кадр ${index + 1}`} />
+                <PhotoTile label={`Пример собранного образа, кадр ${index + 1}`} src={processImages[index]} />
               </Reveal>
             ))}
           </div>
